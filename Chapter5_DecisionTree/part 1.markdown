@@ -10,7 +10,7 @@
 
 **定义1（信息增益）：**引入特征X的信息而使得类Y的信息的不确定性减少的程度。特征A对训练数据集D的信息增益g(D, A)的数学定义为，集合D的经验熵H(D)与在特征A给定下D的经验条件熵H(D|A)之差，即
 
-![信息增益](http://www.forkosh.com/mathtex.cgi?x=a)
+<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;g(D,&space;A)=H(D)-H(D|A)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;g(D,&space;A)=H(D)-H(D|A)" title="g(D, A)=H(D)-H(D|A)" /></a>
 
 $$
 g(D, A)=H(D)-H(D|A)
