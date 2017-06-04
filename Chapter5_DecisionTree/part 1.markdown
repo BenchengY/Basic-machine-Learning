@@ -8,7 +8,8 @@
 
 如果按照特征分类的结果和随机分类的结果一样，不确定性非常大， 那么这个特征是没有用的。所以特征的引入必须是能够降低分类不确定性的。衡量特征对分类的不确定性的下降标准称为**信息增益**。
 
-**定义1（信息增益）**：引入特征X的信息而使得类Y的信息的不确定性减少的程度。特征A对训练数据集D的信息增益g(D, A)的数学定义为，集合D的经验熵H(D)与在特征A给定下D的经验条件熵H(D|A)之差，即
+**定义1（信息增益）**：引入特征X的信息而使得类Y的信息的不确定性减少的程度。特征A对训练数据集D的信息增益g(D, A)的数学定义为，集合D的经验熵H(D)与在特征A给定下D的经验条件熵H(D|A)之差，即：
+
 <a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;g(D,&space;A)=H(D)-H(D|A)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;g(D,&space;A)=H(D)-H(D|A)" title="g(D, A)=H(D)-H(D|A)" /></a>
 
 
@@ -29,64 +30,42 @@
 
 在某数据集上分类困难时，即该数据集的经验熵很大的时候，根据公式(1)可知，此时的信息增益也会较大。比如说，当特征是连续的，这个特征将会把训练集划分成特别多的子集，最极端的情况是每个子集都只有一个样本，此时经验熵将变得很大， 而经验条件熵将会很小，于是信息增益将变得很大。如果单纯地按照信息增益来选去特征，此时的决策树将是一棵大却浅的树。因此提出**信息增益比**作为特征选择的另一准则，在信息增益的基础上除以经验熵,来**惩罚子集很多**的属性。
 
-**定义2（信息增益比）：**特征$A$对数据集$D$的信息增益比$g_R(D,A)$定义为信息增益与经验熵的比值
+**定义2（信息增益比）**：特征A对数据集D的信息增益比<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;g_R(D,A)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;g_R(D,A)" title="g_R(D,A)"/></a>定义为信息增益与经验熵的比值: 
 
 
-$$
-g_R(D, A)=\frac{g(D,A)}{H(D)}
-$$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;g_R(D,&space;A)=\frac{g(D,A)}{H(D)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;g_R(D,&space;A)=\frac{g(D,A)}{H(D)}" title="g_R(D, A)=\frac{g(D,A)}{H(D)}" /></a>
 
 
 ## 参考
 
-**定义3（熵）：**设X是一个取有限个值的离散随机变量，其概率分布为
+**定义3（熵）**：设X是一个取有限个值的离散随机变量，其概率分布为: 
+<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;P(X=x_i)=p_i，i=1,2,…,n" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;P(X=x_i)=p_i，i=1,2,…,n" title="P(X=x_i)=p_i，i=1,2,…,n" /></a>
 
 
-$$
-P(X=x_i)=p_i，i=1,2,…,n
-$$
+则随机变量X的熵定义为:
+<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;H(X)=-\sum_{i=1}^{n}p_i&space;\log&space;p_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;H(X)=-\sum_{i=1}^{n}p_i&space;\log&space;p_i" title="H(X)=-\sum_{i=1}^{n}p_i \log p_i" /></a>
 
 
-则随机变量$X$的熵定义为
+**定义4（条件熵）**：设有随机变量(X, Y)，其联合概率分布为:
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;P(X=x_i,Y=y_j)=p_{ij}，i=1,2,...n；j=1,2,...,m" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;P(X=x_i,Y=y_j)=p_{ij}，i=1,2,...n；j=1,2,...,m" title="P(X=x_i,Y=y_j)=p_{ij}，i=1,2,...n；j=1,2,...,m" /></a>
 
 
-$$
-H(X)=-\sum_{i=1}^{n}p_i \log p_i
-$$
+条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y的不确定性，定义为X给定条件下Y的**条件概率分布的熵**<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;H(Y&space;\mid&space;X=x_i)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;H(Y&space;\mid&space;X=x_i)" title="H(Y \mid X=x_i)" /></a>对X的数学期望:
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;H(Y&space;\mid&space;X)=\sum_{i=1}^{n}p_i&space;H(Y&space;\mid&space;X=x_i)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;H(Y&space;\mid&space;X)=\sum_{i=1}^{n}p_i&space;H(Y&space;\mid&space;X=x_i)" title="H(Y \mid X)=\sum_{i=1}^{n}p_i H(Y \mid X=x_i)" /></a>
 
 
-**定义4（条件熵）：**设有随机变量$(X, Y)$，其联合概率分布为
+**定义5（经验熵）**：设训练数据集为D，|D|表示其样本容量。数据集被分为K个类<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;C_k" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;C_k" title="C_k" /></a>，<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;\mid&space;C_k&space;\mid" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;\mid&space;C_k&space;\mid" title="\mid C_k \mid" /></a>表示属于类<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;C_k" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;C_k" title="C_k" /></a>的样本数量。估计某一数据属于类别<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;C_k" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;C_k" title="C_k" /></a>的概率分布为:
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;P(C_k)=\frac{|C_k|}{|D|}，k=1,2,...K" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;P(C_k)=\frac{|C_k|}{|D|}，k=1,2,...K" title="P(C_k)=\frac{|C_k|}{|D|}，k=1,2,...K" /></a>
 
 
-$$
-P(X=x_i,Y=y_j)=p_{ij}，i=1,2,...n；j=1,2,...,m
-$$
+则数据集D的经验熵定义为
 
+<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;H(D)=-\sum_{k=1}^{K}&space;\frac{|C_k|}{|D|}&space;\log\frac{|C_k|}{|D|}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;H(D)=-\sum_{k=1}^{K}&space;\frac{|C_k|}{|D|}&space;\log\frac{|C_k|}{|D|}" title="H(D)=-\sum_{k=1}^{K} \frac{|C_k|}{|D|} \log\frac{|C_k|}{|D|}" /></a>
 
-条件熵$H(Y \mid X)$表示在已知随机变量$X$的条件下随机变量$Y$的不确定性，定义为$X$给定条件下$Y$的**条件概率分布的熵**$H(Y \mid X=x_i)$对$X$的数学期望
-
-
-$$
-H(Y \mid X)=\sum_{i=1}^{n}p_i H(Y \mid X=x_i)
-$$
-
-
-**定义5（经验熵）：**设训练数据集为$D$，$\mid D \mid $表示其样本容量。数据集被分为$K$个类$C_k$，$\mid C_k \mid$表示属于类$C_k$的样本数量。估计某一数据属于类别$C_k$的概率分布为
-
-
-$$
-P(C_k)=\frac{|C_k|}{|D|}，k=1,2,...K
-$$
-
-
-则数据集$D​$的经验熵定义为
-
-
-$$
-H(D)=-\sum_{k=1}^{K} \frac{|C_k|}{|D|} \log\frac{|C_k|}{|D|}
-$$
-
-**定义6（经验条件熵）：**设特征$A$有$n$个不同的取值${a_1,a_2,…,a_n}$，并将数据集$D$划分成$n$个子集$D_1,D_2,…,D_n$，$\mid D_i \mid$表示子集$D_i$的样本数量。令子集$D_i$中属于类$C_k$的样本集合为$D_{ik}$，$\mid D_{ik} \mid$为集合$D_{ik}$的样本数量。
+**定义6（经验条件熵）**：设特征A有n个不同的取值<a href="https://www.codecogs.com/eqnedit.php?latex=\fn_phv&space;{a_1,a_2,…,a_n}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\fn_phv&space;{a_1,a_2,…,a_n}" title="{a_1,a_2,…,a_n}" /></a>，并将数据集D划分成n个子集$D_1,D_2,…,D_n$，$\mid D_i \mid$表示子集$D_i$的样本数量。令子集$D_i$中属于类$C_k$的样本集合为$D_{ik}$，$\mid D_{ik} \mid$为集合$D_{ik}$的样本数量。
 
 于是某一数据属于子集$D_i$的概率分布为
 
